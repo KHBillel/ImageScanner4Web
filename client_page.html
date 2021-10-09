@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    <script type="text/javascript" src="jq.js"></script>
+    <script>
+        var image2send = null;
+        function startScan(){
+            $.post(
+                "http://127.0.0.1:8000/scan",
+                {
+                    "res_enter" : document.getElementById("res_enter").value,
+                    "is_multiple" : document.getElementById("is_multiple").checked
+                },
+                function (data){
+                    if (data.type == "DATA"){
+                        image2send = data;
+                        $('<object width="'+ String(data.width) +'px" height="' + String(data.height) + 'px" data="data:application/pdf;base64,' + data.content + '" type="application/pdf"><embed width="70%"" height="70%" src="data:application/pdf;base64,"'+data.content+'" type="application/pdf" /></object>').appendTo("body");
+                        $('<input name="pdf_data" type="hidden" src="' + data.content + '"/>').appendTo("body");
+                    }
+                    else{
+                        $('<div style="border-color:red; border-radius:4px; border: solid; color:red">'+data.content+"</div>").appendTo("body");
+                    }
+                }
+            );
+        }
+    </script>
+
+    <form method="POST" action="#">
+        <label for="res_enter">Resolution</label>
+        <input type="number" name="resolution" id="res_enter" value="128"/>
+        </br>
+        <label for="res_enter">Multiple</label>
+        <input type="checkbox" name="Multiple" id="is_multiple" />
+        </br>
+        <input type="button" value="Start scanning" onclick="startScan()"/>
+    </form>
+
+
+    </body>
+</html>
