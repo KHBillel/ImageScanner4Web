@@ -89,7 +89,7 @@ Make sure the browser can reach the Flask backend (they should run on the same m
 
 ## Limitations & Notes
 
-- The service must run on the same machine as the scanner.
+- The service must run on the same machine as the scanner but you can change the address to the machine where the scanner is connected and of course the backend is installed.
 - Supported platforms and scanner models depend on `pyinsane2`.
 - Security: Exposes a local web service; use with care and do not expose to untrusted networks.
 - The sample client uses jQuery (`jq.js`), which must be present in the same directory or replaced with your own implementation.
